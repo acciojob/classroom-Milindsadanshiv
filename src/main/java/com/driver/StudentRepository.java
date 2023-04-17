@@ -77,7 +77,7 @@ public class StudentRepository {
     {
         for (String teacher:teachers.keySet())
         {
-            teachers.remove(teacher);
+            deleteTeacherByName(teacher);
         }
     }
 }
