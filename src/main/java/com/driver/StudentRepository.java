@@ -61,10 +61,7 @@ public class StudentRepository {
     {
         for(String s:pairMap.get(name))
         {
-            if (students.containsKey(s))
-            {
-                students.remove(s);
-            }
+           students.remove(s);
         }
 
         teachers.remove(name);
