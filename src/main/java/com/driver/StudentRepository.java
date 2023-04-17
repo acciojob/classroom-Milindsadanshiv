@@ -8,18 +8,18 @@ import java.util.*;
 
 @Repository
 public class StudentRepository {
-     List<Student> students=new ArrayList<>();
-     List<Teacher> teachers=new ArrayList<>();
+     Map<String,Student> students=new HashMap<>();
+     Map<String,Teacher> teachers=new HashMap<>();
 
      Map<String,List<String>> pairMap=new HashMap<>();
      public void addStudent(Student student)
      {
-         students.add(student);
+         students.put(student.getName(),student);
      }
 
     public void addTeacher(Teacher teacher)
     {
-        teachers.add(teacher);
+        teachers.put(teacher.getName(),teacher);
     }
 
     public void addPair(String student,String teacher)
@@ -36,31 +36,13 @@ public class StudentRepository {
     public Student getStudent(String name)
     {
        // Student student1=new Student();
-        for (Student student:students)
-        {
-            if(student.getName().equals(name))
-            {
-                if (name.equals(student.getName()))
-                {
-                    return student;
-                }
-                 break;
-            }
-        }
-        return null;
+      return students.get(name);
     }
 
     public Teacher getTeacher(String name)
     {
       //  Teacher teacher=new Teacher();
-        for (Teacher t:teachers)
-        {
-            if(t.getName().equals(name))
-            {
-                return t;
-            }
-        }
-        return null;
+      return teachers.get(name);
     }
 
     public List<String> getStudentsByTeacherName(String name)
@@ -71,21 +53,31 @@ public class StudentRepository {
     public List<String> getAllStudents()
     {
         List<String> list=new ArrayList<>();
-        for (Student s:students)
+        for (String s:students.keySet())
         {
-            list.add(s.getName());
+            list.add(s);
         }
         return list;
     }
     public void deleteTeacherByName(String name)
     {
+        for(String s:pairMap.get(name))
+        {
+            if (students.containsKey(s))
+            {
+                students.remove(s);
+            }
+        }
+
         teachers.remove(name);
         pairMap.remove(name);
     }
 
     public void deleteAllTeachers()
     {
-        teachers.clear();
-        pairMap.clear();
+        for (String teacher:teachers.keySet())
+        {
+            teachers.remove(teacher);
+        }
     }
 }
