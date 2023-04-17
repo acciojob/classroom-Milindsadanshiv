@@ -24,13 +24,11 @@ public class StudentRepository {
 
     public void addPair(String student,String teacher)
     {
-       List<String>list=pairMap.get(teacher);
-       if (!pairMap.containsKey(teacher))
-       {
-           pairMap.put(teacher,new ArrayList<>());
-
-       }
-       pairMap.get(teacher).add(student);
+      if (!pairMap.containsKey(teacher))
+      {
+          pairMap.put(teacher,new ArrayList<>());
+      }
+      pairMap.get(teacher).add(student);
     }
 
     public Student getStudent(String name)
